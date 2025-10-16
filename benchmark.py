@@ -1,4 +1,5 @@
 import subprocess
+import math
 import time
 import statistics
 import matplotlib.pyplot as plt
@@ -8,22 +9,21 @@ from pathlib import Path
 mt.set_theme("ft")
 
 REPO_URL = "https://github.com/scikit-learn/scikit-learn.git"
-TARGET_DIR = Path("codebase")
+TARGET_DIR: Path = Path("codebase")
 
 
-PROJECT_PATH = "codebase/sklearn/cross_decomposition/tests"
-CHECKERS = {
+PROJECT_PATH = "codebase"
+CHECKERS: dict = {
     "mypy": ["uv", "run", "mypy", PROJECT_PATH],
     "pyright": ["uv", "run", "pyright", PROJECT_PATH],
     "ty": ["uv", "run", "ty", "check", PROJECT_PATH],
     "pyrefly": ["uv", "run", "pyrefly", "check", PROJECT_PATH],
 }
-REPEATS = 10
+REPEATS = 5
 
 
 def run_benchmark(cmd):
-    times = []
-    print(PROJECT_PATH)
+    times: list = []
     for _ in range(REPEATS):
         start = time.perf_counter()
         subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -42,7 +42,7 @@ def main():
         )
     print("Codebase ready at:", TARGET_DIR.resolve())
 
-    results = {}
+    results: dict = {}
     for name, cmd in CHECKERS.items():
         print(f"Running {name}...")
         mean, std = run_benchmark(cmd)
@@ -52,30 +52,45 @@ def main():
     for name, (mean, std) in results.items():
         print(f"{name:<10} {mean:.2f}s ± {std:.2f}s")
 
-    checkers = list(results.keys())
-    means = [results[c][0] for c in checkers]
-    stds = [results[c][1] for c in checkers]
+    checkers: list = list(results.keys())
+    means: list = [results[c][0] for c in checkers]
+    stds: list = [results[c][1] for c in checkers]
+    std_errors = [s / math.sqrt(REPEATS) if REPEATS > 1 else 0.0 for s in stds]
 
-    fig, ax = plt.subplots(figsize=(8, 5))
-    bars = ax.bar(checkers, means, yerr=stds, capsize=5)
-    ax.set_title("Python Type Checker Benchmark")
-    ax.set_ylabel("Average Runtime (s)")
-    ax.set_xlabel("Checker")
+    fig, ax = plt.subplots(figsize=(9, 5))
 
-    for bar, val in zip(bars, means):
+    bars = ax.barh(checkers, means, height=0.6)
+
+    for bar, val, se in zip(bars, means, std_errors):
         ax.text(
-            bar.get_x() + bar.get_width() / 2,
-            bar.get_height(),
-            f"{val:.2f}s",
-            ha="center",
-            va="bottom",
+            bar.get_width() + 0.05,
+            bar.get_y() + bar.get_height() / 2,
+            f"{val:.2f} sec (±{se:.2f})",
+            ha="left",
+            va="center",
             fontsize=9,
         )
 
-    text = f"Project: {PROJECT_PATH}\nRepeats: {REPEATS}\nCommand runner: uv"
-    fig.text(0.01, 0.01, text, fontsize=8, va="bottom", ha="left")
+    fig.text(
+        x=0.5,
+        y=0.98,
+        s="Python Type Checker Benchmark",
+        size=16,
+        ha="center",
+        va="top",
+    )
+
+    fig.text(
+        x=0.5,
+        y=0.92,
+        s=f"Type checking the entire scikit-learn codebase {REPEATS} times",
+        fontsize=12,
+        color="grey",
+        va="top",
+        ha="center",
+    )
+
     plt.savefig("benchmark.png", dpi=300, bbox_inches="tight")
-    plt.close()
 
 
 if __name__ == "__main__":

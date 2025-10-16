@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.10.7",
+    "morethemes>=0.5.1",
     "mypy>=1.18.2",
     "pyrefly>=0.37.0",
     "pyright>=1.1.406",
