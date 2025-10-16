@@ -63,7 +63,7 @@ def main():
 
     for bar, val, se in zip(bars, means, std_errors):
         ax.text(
-            bar.get_width() + 0.05,
+            bar.get_width() + 0.5,
             bar.get_y() + bar.get_height() / 2,
             f"{val:.2f} sec (±{se:.2f})",
             ha="left",

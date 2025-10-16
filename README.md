@@ -6,8 +6,8 @@ How long does it take to type check the [scikit-learn codebase](https://github.c
 
 This benchmark compares 4 Python type checkers
 
-- [mypy](https://github.com/python/mypy)
 - [pyright](https://github.com/microsoft/pyright)
+- [mypy](https://github.com/python/mypy)
 - [pyrefly](https://github.com/facebook/pyrefly)
 - [ty](https://github.com/astral-sh/ty)
 
