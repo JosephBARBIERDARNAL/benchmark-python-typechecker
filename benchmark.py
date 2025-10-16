@@ -5,6 +5,7 @@ import statistics
 import matplotlib.pyplot as plt
 import morethemes as mt
 from pathlib import Path
+import shutil
 
 mt.set_theme("ft")
 
@@ -23,6 +24,8 @@ REPEATS = 3
 
 
 def run_benchmark(cmd):
+    if Path(".mypy_cache").exists():
+        shutil.rmtree(".mypy_cache")
     times: list = []
     for _ in range(REPEATS):
         start = time.perf_counter()
