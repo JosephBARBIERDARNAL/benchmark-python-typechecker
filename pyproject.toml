@@ -1,0 +1,13 @@
+[project]
+name = "benchmark-python-typechecker"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.10.7",
+    "mypy>=1.18.2",
+    "pyrefly>=0.37.0",
+    "pyright>=1.1.406",
+    "ty>=0.0.1a22",
+]
