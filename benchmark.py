@@ -9,7 +9,8 @@ import shutil
 
 mt.set_theme("ft")
 
-REPO_URL = "https://github.com/scikit-learn/scikit-learn.git"
+REPO_URL = "https://github.com/pandas-dev/pandas.git"
+codebase_name = "pandas"
 TARGET_DIR: Path = Path("codebase")
 
 
@@ -36,10 +37,10 @@ def run_benchmark(cmd):
 
 def main():
     if TARGET_DIR.exists():
-        print("Updating existing scikit-learn repo...")
+        print("Updating existing repo...")
         subprocess.run(["git", "-C", str(TARGET_DIR), "pull"], check=True)
     else:
-        print("Cloning scikit-learn repo...")
+        print("Cloning repo...")
         subprocess.run(
             ["git", "clone", "--depth", "1", REPO_URL, str(TARGET_DIR)], check=True
         )
@@ -86,7 +87,7 @@ def main():
     fig.text(
         x=0.5,
         y=0.92,
-        s=f"Type checking the entire scikit-learn codebase {REPEATS} times",
+        s=f"Type checking the entire {codebase_name} codebase {REPEATS} times",
         fontsize=12,
         color="grey",
         va="top",

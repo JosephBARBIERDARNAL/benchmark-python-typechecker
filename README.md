@@ -1,6 +1,6 @@
 # Comparison of Python type checkers performance
 
-How long does it take to type check the [scikit-learn codebase](https://github.com/scikit-learn/scikit-learn)?
+How long does it take to type check the [pandas codebase](https://github.com/pandas-dev/pandas)?
 
 ![Barplot of a benchmark of all major Python type checkers](benchmark.png)
 
@@ -21,7 +21,7 @@ This benchmark compares 4 Python type checkers
 uv sync
 ```
 
-- Run the benchmark (it will git clone scikit learn codebase locally first)
+- Run the benchmark (it will git clone the codebase locally first)
 
 ```bash
 uv run benchmark.py
