@@ -17,9 +17,8 @@ This benchmark compares 4 Python type checkers
 uv sync
 ```
 
-- Run the benchmark (git clone scikit-learn + run all type checkers)
+- Run the benchmark (it will git clone scikit learn codebase locally first)
 
 ```bash
-uv run src/dummy.py            # git clone codebase in dummy/
-uv run src/benchmark.py        # run the benchmark
+uv run benchmark.py
 ```
