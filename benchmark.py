@@ -16,10 +16,10 @@ PROJECT_PATH = "codebase"
 CHECKERS: dict = {
     "mypy": ["uv", "run", "mypy", PROJECT_PATH],
     "pyright": ["uv", "run", "pyright", PROJECT_PATH],
-    "ty": ["uv", "run", "ty", "check", PROJECT_PATH],
     "pyrefly": ["uv", "run", "pyrefly", "check", PROJECT_PATH],
+    "ty": ["uv", "run", "ty", "check", PROJECT_PATH],
 }
-REPEATS = 5
+REPEATS = 3
 
 
 def run_benchmark(cmd):
