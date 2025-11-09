@@ -16,12 +16,12 @@ TARGET_DIR: Path = Path("codebase")
 
 PROJECT_PATH = "codebase"
 CHECKERS: dict = {
-    "mypy": ["uv", "run", "mypy", PROJECT_PATH],
+    "mypy": ["uv", "run", "mypy", "--cache-dir=/dev/null", PROJECT_PATH],
     "pyright": ["uv", "run", "pyright", PROJECT_PATH],
     "pyrefly": ["uv", "run", "pyrefly", "check", PROJECT_PATH],
     "ty": ["uv", "run", "ty", "check", PROJECT_PATH],
 }
-REPEATS = 3
+REPEATS: int = 3
 
 
 def run_benchmark(cmd):
